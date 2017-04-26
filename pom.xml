@@ -73,6 +73,20 @@
       </dependency>
 
       <dependency>
+        <groupId>org.microbean</groupId>
+        <artifactId>microbean-cdi</artifactId>
+        <version>0.1.2</version>
+        <type>jar</type>
+      </dependency>
+
+      <dependency>
+        <groupId>org.microbean</groupId>
+        <artifactId>microbean-main</artifactId>
+        <version>6</version>
+        <type>jar</type>
+      </dependency>
+
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>1.7.25</version>
@@ -98,6 +112,14 @@
       <artifactId>kubernetes-client</artifactId>
       <version>2.2.14</version>
       <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.microbean</groupId>
+      <artifactId>microbean-cdi</artifactId>
+      <type>jar</type>
+      <scope>compile</scope>
     </dependency>
     
     <dependency>
@@ -152,6 +174,13 @@
     <dependency>
       <groupId>org.jboss.weld.se</groupId>
       <artifactId>weld-se-core</artifactId>
+      <type>jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.microbean</groupId>
+      <artifactId>microbean-main</artifactId>
       <type>jar</type>
       <scope>test</scope>
     </dependency>
