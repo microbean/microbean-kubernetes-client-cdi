@@ -18,10 +18,6 @@ package org.microbean.kubernetes.client.cdi;
 
 import java.io.Closeable;
 
-import java.lang.annotation.Annotation;
-
-import java.util.Set;
-
 import java.util.concurrent.CountDownLatch;
 
 import javax.annotation.Priority;
@@ -38,7 +34,6 @@ import javax.enterprise.inject.Produces;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.ObserverMethod;
 import javax.enterprise.inject.spi.ProcessObserverMethod;
 
 import org.microbean.cdi.AbstractBlockingExtension;
@@ -52,7 +47,6 @@ import io.fabric8.kubernetes.api.model.Event;
 
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientException;
-import io.fabric8.kubernetes.client.Watch;
 import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.Watcher.Action;
 
@@ -76,11 +70,8 @@ public class KubernetesClientExtension extends AbstractBlockingExtension {
   }
 
   private final <X> void processObserverMethod(@Observes final ProcessObserverMethod<Event, X> event, final BeanManager beanManager) {
-    if (event != null && beanManager != null && !this.startWatcher) {
-      final ObserverMethod<Event> observerMethod = event.getObserverMethod();
-      if (observerMethod != null) {
-        this.startWatcher = true;
-      }
+    if (event != null && beanManager != null && !this.startWatcher && event.getObserverMethod() != null) {
+      this.startWatcher = true;
     }
   }
 
@@ -130,10 +121,10 @@ public class KubernetesClientExtension extends AbstractBlockingExtension {
           public final void onClose(final KubernetesClientException kubernetesClientException) {
             if (kubernetesClientException != null) {
               closeException = kubernetesClientException;
+              unblock();
             }
           }
         });
-      this.fireBlockingEvent(beanManager);
     }
   }
 

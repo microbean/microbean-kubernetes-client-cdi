@@ -32,7 +32,7 @@
       <dependency>
         <groupId>io.fabric8</groupId>
         <artifactId>kubernetes-client</artifactId>
-        <version>2.2.14</version>
+        <version>2.3.1</version>
         <type>jar</type>
       </dependency>
       
@@ -46,7 +46,7 @@
       <dependency>
         <groupId>javax.enterprise</groupId>
         <artifactId>cdi-api</artifactId>
-        <version>2.0-PFD2</version>
+        <version>2.0</version>
         <type>jar</type>
       </dependency>
 
@@ -67,7 +67,7 @@
       <dependency>
         <groupId>org.jboss.weld</groupId>
         <artifactId>weld-core-bom</artifactId>
-        <version>3.0.0.CR2</version>
+        <version>3.0.0.Final</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -75,7 +75,7 @@
       <dependency>
         <groupId>org.microbean</groupId>
         <artifactId>microbean-cdi</artifactId>
-        <version>0.1.2</version>
+        <version>0.2.0</version>
         <type>jar</type>
       </dependency>
 
@@ -248,6 +248,7 @@
           <systemPropertyVariables>
             <org.jboss.logging.provider>${org.jboss.logging.provider}</org.jboss.logging.provider>
             <org.slf4j.simpleLogger.log.org.jboss.weld>${org.slf4j.simpleLogger.log.org.jboss.weld}</org.slf4j.simpleLogger.log.org.jboss.weld>
+            <org.slf4j.simpleLogger.log.io.fabric8.kubernetes>${org.slf4j.simpleLogger.log.io.fabric8.kubernetes}</org.slf4j.simpleLogger.log.io.fabric8.kubernetes>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -275,6 +276,7 @@
     
     <!-- Weld logging; see https://docs.jboss.org/weld/reference/latest/en-US/html/logging.html#_weld_se -->
     <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
+    <org.slf4j.simpleLogger.log.io.fabric8.kubernetes>debug</org.slf4j.simpleLogger.log.io.fabric8.kubernetes>
     <org.slf4j.simpleLogger.log.org.jboss.weld>info</org.slf4j.simpleLogger.log.org.jboss.weld>
     
   </properties>
