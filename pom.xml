@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Xlint="urn:javac" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:Xlint="urn:javac"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
-
   <artifactId>microbean-kubernetes-client-cdi</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
 
   <parent>
     <groupId>org.microbean</groupId>
     <artifactId>microbean-pluginmanagement-pom</artifactId>
-    <version>3</version>
+    <version>5</version>
   </parent>
 
-  <name>MicroBean Kubernetes Client CDI</name>
+  <name>microBean Kubernetes Client CDI</name>
   <description>${project.name}</description>
-  <url>http://ljnelson.github.io/${project.artifactId}</url>  
+  <url>http://microbean.github.io/${project.artifactId}</url>  
 
   <scm>
-    <connection>scm:git:git@github.com:ljnelson/${project.artifactId}.git</connection>
-    <developerConnection>scm:git:git@github.com:ljnelson/${project.artifactId}.git</developerConnection>
-    <url>https://github.com/ljnelson/${project.artifactId}/</url>
+    <connection>scm:git:git@github.com:microbean/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:git@github.com:microbean/${project.artifactId}.git</developerConnection>
+    <url>https://github.com/microbean/${project.artifactId}/</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -32,7 +32,7 @@
       <dependency>
         <groupId>io.fabric8</groupId>
         <artifactId>kubernetes-client</artifactId>
-        <version>2.3.1</version>
+        <version>3.1.8</version>
         <type>jar</type>
       </dependency>
       
@@ -67,7 +67,7 @@
       <dependency>
         <groupId>org.jboss.weld</groupId>
         <artifactId>weld-core-bom</artifactId>
-        <version>3.0.0.Final</version>
+        <version>3.0.2.Final</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -75,7 +75,7 @@
       <dependency>
         <groupId>org.microbean</groupId>
         <artifactId>microbean-cdi</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
         <type>jar</type>
       </dependency>
 
@@ -110,7 +110,6 @@
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>kubernetes-client</artifactId>
-      <version>2.2.14</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
@@ -203,7 +202,7 @@
       
       <resource>
         <targetPath>META-INF</targetPath>
-        <directory />
+        <directory/>
         <includes>
           <include>LICENSE</include>
         </includes>
@@ -269,10 +268,16 @@
     <findbugs.threshold>Medium</findbugs.threshold>
 
     <!-- maven-javadoc-plugin properties; see https://maven.apache.org/plugins/maven-javadoc-plugin/javadoc-mojo.html -->
+    <doctitle>&lt;a href="${project.url}" target="_parent"&gt;${project.artifactId}&lt;/a&gt; ${project.version} &lt;a href="https://travis-ci.org/microbean/${project.artifactId}" target="_parent"&gt;&lt;img src="https://travis-ci.org/microbean/${project.artifactId}.svg?branch=master"&gt;&lt;/a&gt;</doctitle>
     <links>https://www.slf4j.org/api/,http://docs.jboss.org/cdi/api/2.0-PFD2/,http://docs.oracle.com/javaee/7/api/,https://maven.apache.org/resolver/apidocs/,https://maven.apache.org/ref/3.3.9/apidocs,https://codehaus-plexus.github.io/plexus-containers/plexus-component-annotations/apidocs/</links>
+    <show>private</show>
 
     <!-- maven-release-plugin properties -->
     <goals>deploy,site-deploy</goals>
+    <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
+
+    <!-- maven-surefire-plugin properties; see http://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html -->
+    <trimStackTrace>false</trimStackTrace>
     
     <!-- Weld logging; see https://docs.jboss.org/weld/reference/latest/en-US/html/logging.html#_weld_se -->
     <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>

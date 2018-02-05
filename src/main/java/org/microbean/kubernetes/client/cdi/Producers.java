@@ -1,6 +1,6 @@
 /* -*- mode: Java; c-basic-offset: 2; indent-tabs-mode: nil; coding: utf-8-unix -*-
  *
- * Copyright © 2017 MicroBean.
+ * Copyright © 2017-2018 microBean.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,43 +16,21 @@
  */
 package org.microbean.kubernetes.client.cdi;
 
-import java.io.Closeable;
-import java.io.IOException;
-
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.BeforeDestroyed;
-import javax.enterprise.context.Initialized;
-
-import javax.enterprise.event.Observes;
 
 import javax.enterprise.inject.Produces;
-
-import io.fabric8.kubernetes.api.model.Event;
-import io.fabric8.kubernetes.api.model.Pod;
 
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.kubernetes.client.KubernetesClientException;
-import io.fabric8.kubernetes.client.Watch;
-import io.fabric8.kubernetes.client.Watcher;
-import io.fabric8.kubernetes.client.Watcher.Action;
-
-import io.fabric8.kubernetes.client.dsl.PodResource;
 
 import io.fabric8.kubernetes.client.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 
-import org.microbean.kubernetes.client.cdi.annotation.Added;
-
 @ApplicationScoped
 class Producers {
-
-  private volatile Closeable watch;
-
-  private volatile KubernetesClientException exceptionFromEvents;
 
   private Producers() {
     super();
