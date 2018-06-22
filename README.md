@@ -1,4 +1,4 @@
-# microbean-kubernetes-client-cdi
+# microBean Kubernetes Client CDI
 
 [![Build Status](https://travis-ci.org/microbean/microbean-helm.svg?branch=master)](https://travis-ci.org/microbean/microbean-kubernetes-client-cdi)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.microbean/microbean-kubernetes-client-cdi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.microbean/microbean-kubernetes-client-cdi)
