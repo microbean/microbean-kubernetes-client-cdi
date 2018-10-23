@@ -19,12 +19,19 @@ package org.microbean.kubernetes.client.cdi;
 import java.io.Closeable;
 import java.io.IOException;
 
+import java.lang.reflect.Constructor;
+
+import java.util.Objects;
+
 import java.util.concurrent.ExecutorService;
 
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.enterprise.inject.Disposes;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
+
+import javax.validation.Validator;
 
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
@@ -83,8 +90,30 @@ class Producers {
   }
 
   @Produces
-  private static final Config produceConfig() {
-    return new ConfigBuilder().build();
+  @ApplicationScoped
+  private static final ConfigBuilder produceConfigBuilder(final Instance<Validator> validatorInstance) {
+    final ConfigBuilder returnValue;
+    if (validatorInstance == null || validatorInstance.isUnsatisfied()) {
+      returnValue = new ConfigBuilder();
+    } else {
+      ConfigBuilder temp = null;
+      try {
+        final Constructor<ConfigBuilder> constructor = ConfigBuilder.class.getConstructor(Validator.class);
+        assert constructor != null;
+        temp = constructor.newInstance(validatorInstance.get());
+      } catch (final ReflectiveOperationException reflectiveOperationException) {
+        temp = new ConfigBuilder();
+      } finally {
+        returnValue = temp;
+      }
+    }
+    return returnValue;
+  }
+  
+  @Produces
+  @ApplicationScoped
+  private static final Config produceConfig(final ConfigBuilder configBuilder) {
+    return Objects.requireNonNull(configBuilder).build();
   }
   
   @Produces
