@@ -8,7 +8,8 @@
   <parent>
     <groupId>org.microbean</groupId>
     <artifactId>microbean-pluginmanagement-pom</artifactId>
-    <version>5</version>
+    <version>9</version>
+    <relativePath/>
   </parent>
 
   <name>microBean Kubernetes Client CDI</name>
@@ -30,9 +31,25 @@
 
       
       <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>2.9.8</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp-bom</artifactId>
+        <version>3.12.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      
+      <dependency>
         <groupId>org.microbean</groupId>
         <artifactId>microbean-base-specification</artifactId>
-        <version>0.4.2</version>
+        <version>0.4.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -40,7 +57,7 @@
       <dependency>
         <groupId>org.microbean</groupId>
         <artifactId>microbean-weld-se-environment</artifactId>
-        <version>0.4.2</version>
+        <version>0.5.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -50,9 +67,23 @@
 
       
       <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.9.8</version>
+        <type>jar</type>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>logging-interceptor</artifactId>
+        <version>3.12.1</version>
+        <type>jar</type>
+      </dependency>
+
+      <dependency>
         <groupId>io.fabric8</groupId>
         <artifactId>kubernetes-client</artifactId>
-        <version>3.2.0</version>
+        <version>4.1.1</version>
         <type>jar</type>
         <exclusions>
           <exclusion>
@@ -87,6 +118,15 @@
       <scope>test</scope>
     </dependency>
     
+    <!-- Provided-scoped dependencies. -->
+
+    <dependency>
+      <groupId>org.microbean</groupId>
+      <artifactId>microbean-base-specification</artifactId>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Compile-scoped dependencies. -->
 
     <dependency>
@@ -96,40 +136,24 @@
       <scope>compile</scope>
     </dependency>
 
-    <!-- Provided-scoped dependencies. -->
-
-    <dependency>
-      <groupId>org.microbean</groupId>
-      <artifactId>microbean-base-specification</artifactId>
-      <type>pom</type>
-      <scope>provided</scope>
-    </dependency>
-    
   </dependencies>
 
   <build>
-    <resources>
-
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-      
-      <resource>
-        <targetPath>META-INF</targetPath>
-        <directory />
-        <includes>
-          <include>LICENSE</include>
-        </includes>
-      </resource>
-
-    </resources>
     <pluginManagement>
       <plugins>
 
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.4</version>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <additionalJOptions combine.children="append">
+              <additionalJOption>-J-Dhttp.agent=maven-javadoc-plugin</additionalJOption>
+            </additionalJOptions>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
         </plugin>
         
         <plugin>
@@ -141,7 +165,7 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      
+
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
@@ -176,24 +200,10 @@
 
   <properties>
 
-    <!-- findbugs-maven-plugin properties; see http://gleclaire.github.io/findbugs-maven-plugin/findbugs-mojo.html -->
-    <findbugs.effort>Max</findbugs.effort>
-    <findbugs.excludeFilterFile>src/findbugs/exclude.xml</findbugs.excludeFilterFile>
-    <findbugs.threshold>Medium</findbugs.threshold>
-
     <!-- maven-javadoc-plugin properties; see https://maven.apache.org/plugins/maven-javadoc-plugin/javadoc-mojo.html -->
-    <doctitle>&lt;a href="${project.url}" target="_parent"&gt;&lt;span style="font-family:Lobster, cursive;"&gt;µb&lt;/span&gt; ${project.artifactId}&lt;/a&gt; ${project.version} &lt;a href="https://travis-ci.org/microbean/${project.artifactId}" target="_parent"&gt;&lt;img src="https://travis-ci.org/microbean/${project.artifactId}.svg?branch=master"&gt;&lt;/a&gt;</doctitle>
     <links>http://docs.jboss.org/cdi/api/2.0/,http://docs.oracle.com/javaee/7/api/</links>
     <show>package</show>
-    <stylesheetfile>css/stylesheet.css</stylesheetfile>
 
-    <!-- maven-release-plugin properties -->
-    <goals>deploy,site-deploy</goals>
-    <scmCommentPrefix>[maven-release-plugin] [skip ci]</scmCommentPrefix>
-
-    <!-- maven-surefire-plugin properties; see http://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html -->
-    <trimStackTrace>false</trimStackTrace>
-    
     <!-- Weld logging; see https://docs.jboss.org/weld/reference/latest/en-US/html/logging.html#_weld_se -->
     <org.jboss.logging.provider>slf4j</org.jboss.logging.provider>
     <org.slf4j.simpleLogger.log.io.fabric8.kubernetes>debug</org.slf4j.simpleLogger.log.io.fabric8.kubernetes>
@@ -205,10 +215,14 @@
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>javadoc-no-fork</report>
+              <report>test-javadoc-no-fork</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
     </plugins>
   </reporting>

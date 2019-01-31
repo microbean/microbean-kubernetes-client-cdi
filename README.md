@@ -1,6 +1,6 @@
 # microBean Kubernetes Client CDI
 
-[![Build Status](https://travis-ci.org/microbean/microbean-helm.svg?branch=master)](https://travis-ci.org/microbean/microbean-kubernetes-client-cdi)
+[![Build Status](https://travis-ci.com/microbean/microbean-helm.svg?branch=master)](https://travis-ci.com/microbean/microbean-kubernetes-client-cdi)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.microbean/microbean-kubernetes-client-cdi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.microbean/microbean-kubernetes-client-cdi)
 
 # Overview
@@ -19,6 +19,6 @@ supertypes) where you need to use it.
 
 [github-location]: https://github.com/microbean/microbean-kubernetes-client-cdi
 [application-scoped]: http://docs.jboss.org/cdi/api/2.0/javax/enterprise/context/ApplicationScoped.html
-[default-kubernetes-client]: https://static.javadoc.io/io.fabric8/kubernetes-client/3.1.8/io/fabric8/kubernetes/client/DefaultKubernetesClient.html
+[default-kubernetes-client]: https://static.javadoc.io/io.fabric8/kubernetes-client/4.1.1/io/fabric8/kubernetes/client/DefaultKubernetesClient.html
 [default]: http://docs.jboss.org/cdi/api/2.0/javax/enterprise/inject/Default.html
 [inject]: https://static.javadoc.io/javax.inject/javax.inject/1/javax/inject/Inject.html
